@@ -31,7 +31,7 @@ model Mod {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  author      User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   categories  Category[]
 }
