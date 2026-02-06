@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express"
+import type { Request, Response, NextFunction } from "express"
 import dotenv from 'dotenv'
 import jwt from "jsonwebtoken"
-import { AuthPayload } from "../types/authPayload.ts"
+import type { AuthPayload } from "../types/authPayload.ts"
 
 dotenv.config()
 
@@ -32,6 +32,8 @@ export const authMiddleware = (
 
     try {
         const decode = jwt.verify(token, SECRET_KEY) as unknown as AuthPayload
+
+        (req as any).user = decode
 
         next()
     } catch (err) {
