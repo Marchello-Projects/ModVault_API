@@ -1,16 +1,13 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { PrismaClient, Prisma } from '@prisma/client'
-import type { 
-    RegisterInput, 
-    LoginInput
-} from '../schemas/auth.ts'
+import { PrismaClient, Prisma, Role } from '@prisma/client'
+import type { RegisterInput, LoginInput } from '../schemas/auth.ts'
 import { SECRET_KEY } from '../middlewares/authMiddleware.ts'
 
 const prisma = new PrismaClient()
 
 export class AuthService {
-    private generateToken(id: number, role: string) {
+    private generateToken(id: number, role: Role) {
         if (!SECRET_KEY) {
             throw new Error("SECRET_KEY is not defined")
         }
@@ -28,7 +25,7 @@ export class AuthService {
         })
 
         if (!user) {
-            throw new Error("User not found")
+            throw new Error("Invalid email or password")
         }
 
         return user
@@ -52,7 +49,7 @@ export class AuthService {
                 username: data.username,
                 email: data.email,
                 password: hashedPassword,
-                role: "USER"
+                role: Role.USER
             }
         })
 
@@ -68,7 +65,7 @@ export class AuthService {
         const isPasswordValid = await bcrypt.compare(data.password, user.password)
 
         if (!isPasswordValid) {
-            throw new Error("Incorrect password")
+            throw new Error("Invalid email or password")
         }
 
         const token = this.generateToken(user.id, user.role)

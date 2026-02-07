@@ -18,7 +18,7 @@ export const authMiddleware = (
 ) => {
     const authHeader = req.headers.authorization
 
-    if (!authHeader) {
+    if (!authHeader?.startsWith("Bearer ")) {
         res.status(401).json({ message: "Token not provided" })
         return
     }
@@ -31,9 +31,9 @@ export const authMiddleware = (
     }
 
     try {
-        const decode = jwt.verify(token, SECRET_KEY) as unknown as AuthPayload
+        const payload = jwt.verify(token, SECRET_KEY) as AuthPayload
 
-        (req as any).user = decode
+        (req as any).user = payload
 
         next()
     } catch (err) {
