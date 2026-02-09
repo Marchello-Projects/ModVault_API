@@ -45,7 +45,6 @@ PORT=3000
 DOTENV_CONFIG_QUIET=true
 DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/modvault?schema=public"
 SECRET_KEY=Key_for_JWT
-ADMIN_USERNAME=admin
 ADMIN_EMAIL=admin@example.com
 ADMIN_PASSWORD=secure_admin_password
 
