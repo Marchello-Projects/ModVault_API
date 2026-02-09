@@ -7,7 +7,7 @@ import { SECRET_KEY } from '../middlewares/authMiddleware.ts'
 const prisma = new PrismaClient()
 
 export class AuthService {
-    private generateToken(id: number, role: Role) {
+    private _generateToken(id: number, role: Role) {
         if (!SECRET_KEY) {
             throw new Error("SECRET_KEY is not defined")
         }
@@ -53,7 +53,7 @@ export class AuthService {
             }
         })
 
-        const token = this.generateToken(newUser.id, newUser.role);
+        const token = this._generateToken(newUser.id, newUser.role);
 
         const { password, ...userWithoutPassword } = newUser
         return { user: userWithoutPassword, token }
@@ -68,7 +68,7 @@ export class AuthService {
             throw new Error("Invalid email or password")
         }
 
-        const token = this.generateToken(user.id, user.role)
+        const token = this._generateToken(user.id, user.role)
 
         return { token }
     }

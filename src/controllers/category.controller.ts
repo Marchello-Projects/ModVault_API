@@ -34,7 +34,7 @@ export const allCategories = async (req: Request, res: Response) => {
     try {
         const categories = await categoryService.getAllCategories()
         res.status(200).json(categories)
-    } catch (error: unknown) {
+    } catch(error: unknown) {
         res.status(500).json({ message: `Internal server error: ${error instanceof Error ? error.message : String(error)}` })
     }
 }

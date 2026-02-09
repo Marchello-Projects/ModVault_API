@@ -24,7 +24,7 @@ model User {
 
 model Mod {
   id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(50)
+  title       String   @unique @db.VarChar(50)
   description String  
   fileUrl     String
   authorId    Int
