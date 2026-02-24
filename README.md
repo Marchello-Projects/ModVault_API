@@ -25,7 +25,7 @@ A RESTful API for a game asset sharing platform
 ### 1. Clone the repository
 
 ```bash
-https://github.com/Marchello-Projects/ModVault_API
+git clone https://github.com/Marchello-Projects/ModVault_API
 ```
 
 ### 2. Install dependencies
